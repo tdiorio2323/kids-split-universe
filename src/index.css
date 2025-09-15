@@ -1,0 +1,728 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* split divider */
+.split{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.split::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#ffffff66}
+
+/* shared glass card */
+.panel{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;padding:0 24px;overflow:hidden}
+.panel .content{background:rgba(255,255,255,.10);border:1px solid #ffffff40;box-shadow:0 10px 40px #0006,inset 0 1px 0 #fff3;backdrop-filter:blur(20px);border-radius:22px;padding:28px 36px;text-align:center}
+
+/* LUCA — sky horizon + forest */
+.panel.luca{
+  background:
+    url("/assets/luca-hero.jpg") bottom center/cover no-repeat,
+    linear-gradient(180deg,#9fd7ff 0%,#bfe3ff 42%,#0000 47%);
+}
+.luca-title{font-family:"Press Start 2P",system-ui;font-size:72px;line-height:1;color:#e9e0c8;-webkit-text-stroke:3px #255d30;text-shadow:0 3px 0 #255d30,0 6px 0 #1b4523,0 0 14px #000a}
+.panel.luca .subtitle{color:#fff;text-shadow:0 1px 2px #0008}
+.panel.luca::after{content:"";position:absolute;inset:0;background:radial-gradient(1100px 550px at 50% -8%,#0000 0%,#0005 75%,#0009 100%);pointer-events:none}
+
+/* pixel icons in fixed spots */
+.panel.luca .icons img{position:absolute;image-rendering:pixelated;filter:drop-shadow(0 6px 8px #0006)}
+.panel.luca .diamond{left:19%;top:7%;width:84px;height:84px;animation:float 6s ease-in-out infinite}
+.panel.luca .star{left:55%;top:17%;width:74px;height:74px;animation:float 7s ease-in-out -1s infinite}
+.panel.luca .heart{left:41%;bottom:16%;width:86px;height:86px;animation:float 5.5s ease-in-out -.5s infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* SOFIA — galaxy + neon bloom */
+.panel.sofia{
+  background:
+    url("/assets/sofia-hero.jpg") center/cover no-repeat,
+    radial-gradient(900px 900px at 50% 40%, #ff6ad544 0%, transparent 55%),
+    radial-gradient(700px 700px at 60% 55%, #7a8cff44 0%, transparent 50%),
+    radial-gradient(700px 700px at 40% 65%, #44d3ff44 0%, transparent 55%);
+}
+.sofia-title{font-family:Poppins,system-ui;font-weight:900;font-size:76px;line-height:1;background:linear-gradient(90deg,#ff6ad5,#7a8cff,#44d3ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 26px #ff6ad588,0 0 30px #7a8cff88,0 6px 18px #000a}
+.panel.sofia .subtitle{color:#fff}
+
+/* CTA like mock */
+.cta{display:inline-block;margin-top:22px;padding:12px 26px;border-radius:999px;border:2px solid #fff;background:rgba(255,255,255,.14);color:#fff;font-weight:700}
+
+/* mobile */
+@media (max-width:900px){.split{grid-template-columns:1fr}.split::before{display:none}.luca-title,.sofia-title{font-size:52px}}
+
+/* Kids Portal Design System with Minecraft Voxel & K-Pop Neon Themes */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    /* Minecraft Theme Colors */
+    --mc-sky-light: 206 100% 80%;
+    --mc-sky-dark: 206 100% 60%;
+    --mc-grass: 120 80% 40%;
+    --mc-dirt: 30 40% 35%;
+    --mc-stone: 0 0% 50%;
+    --mc-wood: 30 60% 30%;
+
+    /* K-Pop Neon Theme Colors */
+    --neon-pink: 330 100% 60%;
+    --neon-purple: 280 100% 60%;
+    --neon-blue: 240 100% 60%;
+    --neon-cyan: 180 100% 60%;
+    --neon-yellow: 60 100% 60%;
+
+    /* Parallax Variables */
+    --tiltX: 0deg;
+    --tiltY: 0deg;
+    --parX: 0px;
+    --parY: 0px;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Global reduced-motion support */
+.reduce-motion * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Minecraft Voxel Components */
+@layer components {
+  .mc-sky {
+    background: linear-gradient(180deg, 
+      hsl(var(--mc-sky-light)) 0%, 
+      hsl(var(--mc-sky-dark)) 100%);
+    transform: translateZ(calc(var(--parY) * -0.1)) rotateX(var(--tiltY)) rotateY(var(--tiltX));
+    transition: transform 0.1s ease-out;
+  }
+
+  .mc-hills {
+    background: repeating-linear-gradient(
+      45deg,
+      hsl(var(--mc-stone)) 0px,
+      hsl(var(--mc-stone)) 20px,
+      hsl(120 60% 45%) 20px,
+      hsl(120 60% 45%) 40px
+    );
+    clip-path: polygon(0 60%, 20% 40%, 40% 50%, 60% 30%, 80% 45%, 100% 35%, 100% 100%, 0 100%);
+    transform: translateZ(calc(var(--parY) * -0.3)) rotateX(var(--tiltY)) rotateY(var(--tiltX));
+    transition: transform 0.1s ease-out;
+  }
+
+  .mc-forest {
+    background: repeating-linear-gradient(
+      90deg,
+      hsl(var(--mc-wood)) 0px,
+      hsl(var(--mc-wood)) 8px,
+      hsl(120 70% 25%) 8px,
+      hsl(120 70% 25%) 16px,
+      hsl(var(--mc-wood)) 16px,
+      hsl(var(--mc-wood)) 24px,
+      hsl(120 80% 30%) 24px,
+      hsl(120 80% 30%) 32px
+    );
+    clip-path: polygon(0 70%, 12% 50%, 25% 60%, 37% 45%, 50% 55%, 62% 40%, 75% 50%, 87% 35%, 100% 45%, 100% 100%, 0 100%);
+    transform: translateZ(calc(var(--parY) * -0.5)) rotateX(var(--tiltY)) rotateY(var(--tiltX));
+    transition: transform 0.1s ease-out;
+  }
+
+  .mc-ground {
+    background: linear-gradient(180deg,
+      hsl(var(--mc-grass)) 0%,
+      hsl(var(--mc-grass)) 20%,
+      hsl(var(--mc-dirt)) 20%,
+      hsl(var(--mc-dirt)) 100%
+    );
+    border-top: 4px solid hsl(var(--mc-grass));
+    transform: translateZ(calc(var(--parY) * -0.7)) rotateX(var(--tiltY)) rotateY(var(--tiltX));
+    transition: transform 0.1s ease-out;
+  }
+
+  /* K-Pop Neon Background */
+  .kpop-bg {
+    background: radial-gradient(
+      circle at 30% 20%,
+      hsl(var(--neon-pink) / 0.8) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 80%,
+      hsl(var(--neon-purple) / 0.6) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 90% 10%,
+      hsl(var(--neon-blue) / 0.4) 0%,
+      transparent 50%
+    ),
+    linear-gradient(135deg,
+      hsl(var(--neon-purple) / 0.2) 0%,
+      hsl(var(--neon-pink) / 0.3) 50%,
+      hsl(var(--neon-blue) / 0.2) 100%
+    );
+    position: relative;
+  }
+
+  .kpop-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, hsl(var(--neon-yellow)) 1px, transparent 1px),
+      radial-gradient(circle at 80% 70%, hsl(var(--neon-cyan)) 1px, transparent 1px),
+      radial-gradient(circle at 60% 20%, hsl(var(--neon-pink)) 1px, transparent 1px),
+      radial-gradient(circle at 30% 80%, hsl(var(--neon-purple)) 1px, transparent 1px);
+    background-size: 100px 100px, 150px 150px, 80px 80px, 120px 120px;
+    animation: sparkle 8s infinite linear;
+    pointer-events: none;
+  }
+
+  @keyframes sparkle {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-20px) rotate(360deg); }
+  }
+
+  /* Portal Split Layout */
+  .portal-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+
+  @media (max-width: 768px) {
+    .portal-split {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+  }
+
+  /* Character Titles */
+  .minecraft-title {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: white;
+    text-shadow: 
+      2px 2px 0px hsl(var(--mc-stone)),
+      4px 4px 8px rgba(0,0,0,0.5);
+    letter-spacing: 0.1em;
+  }
+
+  .minecraft-title-large {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #8B4513;
+    text-shadow: 
+      3px 3px 0px #654321,
+      6px 6px 0px #4A2C14,
+      9px 9px 12px rgba(0,0,0,0.8);
+    letter-spacing: 0.05em;
+    background: linear-gradient(135deg, #DEB887 0%, #8B4513 50%, #654321 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .minecraft-subtitle {
+    font-family: 'Courier New', monospace;
+    font-weight: normal;
+    color: white;
+    text-shadow: 
+      2px 2px 0px rgba(0,0,0,0.8),
+      4px 4px 8px rgba(0,0,0,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  .minecraft-button {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #4A4A4A;
+    box-shadow: 
+      0 4px 0px #999,
+      0 8px 12px rgba(0,0,0,0.3);
+  }
+
+  .neon-title {
+    background: linear-gradient(
+      45deg,
+      hsl(var(--neon-pink)),
+      hsl(var(--neon-purple)),
+      hsl(var(--neon-blue)),
+      hsl(var(--neon-cyan))
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    filter: drop-shadow(0 0 10px hsl(var(--neon-pink) / 0.5));
+    animation: neon-glow 2s ease-in-out infinite alternate;
+  }
+
+  .neon-title-large {
+    background: linear-gradient(
+      135deg,
+      #FF1493 0%,
+      #9932CC 25%,
+      #4169E1 50%,
+      #00CED1 75%,
+      #FF1493 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.8));
+    animation: neon-glow-enhanced 3s ease-in-out infinite alternate;
+    background-size: 200% 200%;
+    animation: neon-glow-enhanced 3s ease-in-out infinite alternate, gradient-shift 4s ease-in-out infinite;
+  }
+
+  .kpop-subtitle {
+    color: white;
+    font-weight: 300;
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.3),
+      0 0 20px rgba(147, 50, 204, 0.5),
+      0 0 30px rgba(255, 20, 147, 0.3);
+    letter-spacing: 0.1em;
+  }
+
+  .mystical-button {
+    color: white;
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, rgba(255, 20, 147, 0.2), rgba(147, 50, 204, 0.2));
+    box-shadow: 
+      0 0 20px rgba(255, 20, 147, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .mystical-button:hover {
+    background: linear-gradient(135deg, rgba(255, 20, 147, 0.3), rgba(147, 50, 204, 0.3));
+    box-shadow: 
+      0 0 30px rgba(255, 20, 147, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  @keyframes neon-glow {
+    from {
+      filter: drop-shadow(0 0 10px hsl(var(--neon-pink) / 0.5));
+    }
+    to {
+      filter: drop-shadow(0 0 20px hsl(var(--neon-purple) / 0.8));
+    }
+  }
+
+  @keyframes neon-glow-enhanced {
+    from {
+      filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.8));
+    }
+    to {
+      filter: drop-shadow(0 0 40px rgba(147, 50, 204, 1));
+    }
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Minecraft Floating Elements */
+  .minecraft-emerald {
+    background: linear-gradient(135deg, #50C878 0%, #2E8B57 100%);
+    border: 2px solid #228B22;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .minecraft-emerald::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: linear-gradient(45deg, #90EE90 0%, #50C878 100%);
+    border-radius: 2px;
+  }
+
+  .minecraft-star {
+    background: linear-gradient(45deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 50%;
+    position: relative;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+
+  .minecraft-heart {
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    position: relative;
+    transform: rotate(-45deg);
+    border-radius: 50% 0;
+  }
+
+  .minecraft-heart::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    border-radius: 50%;
+  }
+
+  .minecraft-heart::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    border-radius: 50%;
+  }
+
+  /* Mystical Elements */
+  .mystical-particles {
+    background-image: 
+      radial-gradient(circle at 15% 25%, rgba(255, 20, 147, 0.6) 2px, transparent 2px),
+      radial-gradient(circle at 85% 75%, rgba(147, 50, 204, 0.6) 2px, transparent 2px),
+      radial-gradient(circle at 65% 15%, rgba(65, 105, 225, 0.6) 2px, transparent 2px),
+      radial-gradient(circle at 25% 85%, rgba(0, 206, 209, 0.6) 2px, transparent 2px);
+    background-size: 150px 150px, 200px 200px, 100px 100px, 250px 250px;
+    animation: mystical-float 12s infinite linear;
+  }
+
+  .mystical-crystal {
+    background: linear-gradient(135deg, rgba(255, 20, 147, 0.8), rgba(147, 50, 204, 0.8));
+    border-radius: 4px;
+    transform: rotate(45deg);
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .mystical-crystal::before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 2px;
+  }
+
+  /* Animations */
+  @keyframes mystical-float {
+    0% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(90deg); }
+    50% { transform: translateY(-5px) rotate(180deg); }
+    75% { transform: translateY(-15px) rotate(270deg); }
+    100% { transform: translateY(0) rotate(360deg); }
+  }
+
+  @keyframes animate-float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(180deg); }
+  }
+
+  @keyframes animate-float-fast {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-15px) scale(1.1); }
+  }
+
+  .animate-float-slow {
+    animation: animate-float-slow 4s ease-in-out infinite;
+  }
+
+  .animate-float-fast {
+    animation: animate-float-fast 2s ease-in-out infinite;
+  }
+
+  /* Minecraft Block-style Letter System */
+  .minecraft-block-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.6));
+  }
+
+  .block-letter-container {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+  }
+
+  .block-letter {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .block-row {
+    display: flex;
+    gap: 2px;
+  }
+
+  .minecraft-block {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    background: linear-gradient(135deg, #795548 0%, #5D4037 100%);
+    border: 2px solid #4A2C2A;
+    border-radius: 2px;
+    box-shadow: 
+      inset 1px 1px 0px rgba(255, 255, 255, 0.3),
+      inset -1px -1px 0px rgba(0, 0, 0, 0.5),
+      2px 2px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  .minecraft-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);
+    border-radius: 1px 1px 0 0;
+    box-shadow: 
+      inset 0 1px 0px rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  .minecraft-block::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #8D6E63 0%, #6D4C41 100%);
+    border-radius: 0 0 1px 1px;
+  }
+
+  .block-empty {
+    width: 24px;
+    height: 24px;
+    opacity: 0;
+  }
+
+  @media (max-width: 768px) {
+    .minecraft-block,
+    .block-empty {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .minecraft-block::before {
+      height: 4px;
+    }
+    
+    .minecraft-block::after {
+      top: 4px;
+    }
+    
+    .block-letter-container {
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .minecraft-block,
+    .block-empty {
+      width: 14px;
+      height: 14px;
+    }
+    
+    .minecraft-block::before {
+      height: 3px;
+    }
+    
+    .minecraft-block::after {
+      top: 3px;
+    }
+    
+    .block-letter-container {
+      gap: 8px;
+    }
+  }
+
+  /* Neon Gradient SOFIA Wordmark */
+  .neon-wordmark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .neon-letter-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .neon-letter {
+    font-size: 8rem;
+    font-weight: 900;
+    font-family: 'Arial Black', Arial, sans-serif;
+    letter-spacing: 0.05em;
+    position: relative;
+    display: inline-block;
+    animation: neon-pulse 3s ease-in-out infinite alternate;
+  }
+
+  .neon-letter-s {
+    background: linear-gradient(180deg, #FF1493 0%, #FF69B4 50%, #00FFFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px #FF1493) drop-shadow(0 0 40px #FF1493);
+    animation-delay: 0s;
+  }
+
+  .neon-letter-o {
+    background: linear-gradient(180deg, #FF69B4 0%, #9932CC 50%, #00CED1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px #FF69B4) drop-shadow(0 0 40px #9932CC);
+    animation-delay: 0.2s;
+  }
+
+  .neon-letter-f {
+    background: linear-gradient(180deg, #9932CC 0%, #4169E1 50%, #00FFFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px #9932CC) drop-shadow(0 0 40px #4169E1);
+    animation-delay: 0.4s;
+  }
+
+  .neon-letter-i {
+    background: linear-gradient(180deg, #4169E1 0%, #00CED1 50%, #00FFFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px #4169E1) drop-shadow(0 0 40px #00CED1);
+    animation-delay: 0.6s;
+  }
+
+  .neon-letter-a {
+    background: linear-gradient(180deg, #00CED1 0%, #00FFFF 50%, #FF1493 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px #00CED1) drop-shadow(0 0 40px #00FFFF);
+    animation-delay: 0.8s;
+  }
+
+  @keyframes neon-pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+  }
+
+
+
+  @media (max-width: 768px) {
+    .neon-letter {
+      font-size: 4rem;
+      gap: 4px;
+    }
+    
+    .neon-letter-container {
+      gap: 4px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .neon-letter {
+      font-size: 2.5rem;
+    }
+    
+    .neon-letter-container {
+      gap: 2px;
+    }
+  }
+}
