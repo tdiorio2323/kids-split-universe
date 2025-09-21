@@ -8,15 +8,32 @@ const Index = () => {
         to="/luca"
         className="panel luca"
       >
-        <div className="icons">
-          <img className="diamond" src="/assets/diamond.png" alt="" />
-          <img className="star" src="/assets/star.png" alt="" />
-          <img className="heart" src="/assets/heart.png" alt="" />
-        </div>
-        <div className="content">
-          <h1 className="luca-title">LUCA</h1>
-          <p className="subtitle">Minecraft Adventures</p>
-          <span className="cta">Enter World</span>
+        <div className="h-full relative overflow-hidden">
+          {/* Minecraft Landscape Background */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: 'url(/assets/luca-minecraft-landscape.png)' }}
+          ></div>
+          
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors"></div>
+          
+          {/* Floating Minecraft Items */}
+          <div className="absolute top-1/4 left-1/4 w-16 h-16 minecraft-emerald animate-bounce opacity-80" style={{ animationDelay: '0s' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-12 h-12 minecraft-star animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
+          
+          {/* Content Overlay */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+            <div className="minecraft-text-container mb-4 transform group-hover:scale-110 transition-transform">
+              <h1 className="minecraft-title-enhanced text-6xl md:text-8xl text-white font-bold tracking-wider">
+                LUCA
+              </h1>
+            </div>
+            <p className="minecraft-title text-lg md:text-xl mb-8 opacity-90 text-white drop-shadow-md font-semibold">
+              Minecraft Adventures
+            </p>
+            <span className="cta">Enter World</span>
+          </div>
         </div>
       </Link>
 
